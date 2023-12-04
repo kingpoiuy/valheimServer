@@ -1,0 +1,24 @@
+#initial install:
+sudo apt install software-properties-common -y
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install lib32gcc-s1 steamcmd awscli python3-pip -y
+/usr/games/steamcmd +@sSteamCmdForcePlatformType linux \
+                    +force_install_dir ~/Steam/steamapps/common/ValheimServer \
+                    +login anonymous \
+                    +app_update 896660 \
+                    -beta none validate \
+                    +quit
+
+#start the server:
+~/Steam/steamapps/common/ValheimServer/start_server.sh
+
+#update the server software:
+/usr/games/steamcmd +force_install_dir ~/Steam/steamapps/common/ValheimServer \
+					+login anonymous \
+                    +app_update 896660 \
+                    -beta none validate \
+                    +quit
+
+#Find your seed:
+(head -c$(od -j$(od -j8 -N1 -An -t u1) -N1 -An -t u1);echo) < /home/ubuntu/.config/unity3d/IronGate/Valheim/worlds_local/Dedicated.fwl
